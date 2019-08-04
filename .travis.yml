@@ -1,0 +1,9 @@
+language: clojure
+
+before_install:
+  - sudo apt-get install nodejs
+
+script:
+  - npm -version
+  - npm i
+  - lein test
