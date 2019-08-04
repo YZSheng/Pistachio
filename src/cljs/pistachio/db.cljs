@@ -1,4 +1,4 @@
 (ns pistachio.db)
 
 (def default-db
-  {:name "Pistachio"})
+  {:name "Pistachio HR System"})
