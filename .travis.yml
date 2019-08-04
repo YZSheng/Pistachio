@@ -5,5 +5,6 @@ before_install:
 
 script:
   - npm i
+  - npm install -g karma-cli
   - lein doo chrome-headless test once
   - lein test
