@@ -6,12 +6,11 @@ script:
 - npm install -g karma-cli
 - lein doo chrome-headless test once
 - lein test
+- lein clean
+- lein cljsbuild once min
+- lein with-profile prod uberjar
 deploy:
   provider: heroku
   api_key:
     secure: MCEPsq5tsAQufVXpM7+SrxxNBK8EX9ilxHqRWiUhGeF3Qo2vgZuIlz190798VM2R4Suy5EODMgj8jfrz8rsWr5MxMM5yb7eROEt6RCpXrvbObGOGExeOmnNfn3uL33j0+h9l6AyOjzL1PuHOZD0a+wNQfg+36haYX77XL9PbcYot8MnMreftasi0R3mNDkXpOZNGXa6TPGXstPusRhUHFOvL7Xw2EMmZgdd3jvTmKYRgpzBdtcp9p3vHyoKqZZSUAphkZfKfMlkJLl/IJI00swZUdMnjtzQk/iGUsAJEJquACJ28yeuaSNOm5L61up1GDZcXxVRMH6hWa/UQgG0Kkm3wnw7K8knwIv1pJINayed1T57/q119el2Kmt0Y61QrvOp2iQrAcqAIGr7WqA9uJgqiS0ZdCTQoM+YAxtXOZLa+TZ7LNZ9H/VFiKC5AOjiD+lRCozJPaMN2Sx0ekBnoP/tGg7qPNqHh9jW741e7WAb31JFvs+S9gXU1DkMjqTFqMkHn/sjGbcm1rUA4SFVLS0/szCm/egsT6zRdg0y4ea6WZ9ACRrRe9htoxpsw20QjYHULLpp9HvNywZnvBN/nAS7iSQ0Ouydo0M0f2P3642IPpjbc2N4+e3dnFruBhabMqhaSKSeqsM55dUmJ8QUZkuuyE3gyfU9WYpGAmotV2gg=
   app: pistachio-hr
-  run:
-    - lein clean
-    - lein cljsbuild once min
-    - lein with-profile prod uberjar
