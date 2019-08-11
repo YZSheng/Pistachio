@@ -1,9 +1,15 @@
 (ns pistachio.views
   (:require
-   [re-frame.core :as re-frame]
-   [pistachio.subs :as subs]))
+    [re-frame.core :as re-frame]
+    [pistachio.subs :as subs]))
 
+;; users
 
+(defn user-section []
+  (let [users (re-frame/subscribe [::subs/users])]
+       [:div (map (fn [{name :name department :department}]
+                    [:div {:key (str name department)} "Name: " name])
+                  @users)]))
 
 ;; home
 
@@ -11,12 +17,10 @@
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
      [:h1 (str "Hello from " @name)]
-
+     [user-section]
      [:div
       [:a {:href "#/about"}
        "go to About Page"]]]))
-
-
 
 ;; about
 
@@ -27,7 +31,6 @@
    [:div
     [:a {:href "#/"}
      "go to Home Page"]]])
-
 
 ;; main
 
