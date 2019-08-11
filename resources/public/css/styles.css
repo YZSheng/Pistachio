@@ -1,0 +1,14 @@
+.user-tile {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+
+.user-tile img {
+  border-radius: 50%;
+}
+
+.user-tile dt,
+.user-tile dd {
+  text-align: center;
+}

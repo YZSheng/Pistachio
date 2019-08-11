@@ -3,20 +3,31 @@
     [re-frame.core :as re-frame]
     [pistachio.subs :as subs]))
 
+(defn user-tile
+  [name department avatar-url]
+  [:div {:class "user-tile column"}
+   [:div
+    [:figure {:class "image is-128x128"}
+     [:img {:src avatar-url}]]
+    [:dl
+     [:dt name]
+     [:dd department]]]])
+
 ;; users
 
 (defn user-section []
   (let [users (re-frame/subscribe [::subs/users])]
-       [:div (map (fn [{name :name department :department}]
-                    [:div {:key (str name department)} "Name: " name])
-                  @users)]))
+    [:div {:class "columns"} (map (fn [{name :name department :department avatar-url :avatar-url}]
+                                    (user-tile name department avatar-url))
+                                  @users)]))
 
 ;; home
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
-     [:h1 (str "Hello from " @name)]
+       [:h1 {:class "title"}
+        (str "Hello from " @name)]
      [user-section]
      [:div
       [:a {:href "#/about"}
