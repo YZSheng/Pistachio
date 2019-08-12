@@ -11,4 +11,5 @@
 
 (def default-db
   {:name "Pistachio HR System"
-   :users users})
+   :users users
+   :menu-burger-toggled false})

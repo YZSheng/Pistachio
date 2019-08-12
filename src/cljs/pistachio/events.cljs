@@ -14,3 +14,8 @@
  ::set-active-panel
  (fn-traced [db [_ active-panel]]
    (assoc db :active-panel active-panel)))
+
+(re-frame/reg-event-db
+  ::toggle-menu-burger
+  (fn-traced [db _]
+             (update db :menu-burger-toggled not)))

@@ -16,3 +16,8 @@
   ::users
   (fn [db]
     (:users db)))
+
+(re-frame/reg-sub
+  ::menu-burger-toggled
+  (fn [db]
+    (:menu-burger-toggled db)))

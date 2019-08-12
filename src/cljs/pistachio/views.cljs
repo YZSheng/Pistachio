@@ -1,6 +1,7 @@
 (ns pistachio.views
   (:require
     [re-frame.core :as re-frame]
+    [pistachio.events :as events]
     [pistachio.subs :as subs]))
 
 (defn user-tile
@@ -15,19 +16,22 @@
 
 ;; nav bars
 
-(defn nav-bar
-  "navigation bar"
-  []
-  [:nav.navbar {:role "navigation"}
-   [:div.navbar-brand
-    [:a.navbar-item {:href "#/"} "PistachioHR"]
-    [:a.navbar-burger.burger {:role "button" :data-target "navbar-content"}
-     (->> (range 3)
-          (map #(vector :span {:key %1})))]]
-   [:div#navbar-content.navbar-menu
-    [:div.navbar-start
-     [:a.navbar-item {:href "#/"} "Home"]
-     [:a.navbar-item {:href "#/about"} "About"]]]])
+(defn nav-bar []
+  (let [toggled (re-frame/subscribe [::subs/menu-burger-toggled])]
+    [:nav.navbar {:role "navigation"}
+     [:div.navbar-brand
+      [:a.navbar-item {:href "#/"} "PistachioHR"]
+      [:a.navbar-burger.burger
+       {:class (str "navbar-burger burger" (when @toggled " is-active"))
+        :role "button"
+        :data-target "navbar-content"
+        :on-click #(re-frame/dispatch [::events/toggle-menu-burger])}
+       (->> (range 3)
+            (map #(vector :span {:key %1})))]]
+     [:div#navbar-content.navbar-menu
+      [:div.navbar-start
+       [:a.navbar-item {:href "#/"} "Home"]
+       [:a.navbar-item {:href "#/about"} "About"]]]]))
 
 ;; users
 
@@ -54,7 +58,6 @@
 (defn about-panel []
   [:div
    [:h1 "This is the About Page."]
-
    [:div
     [:a {:href "#/"}
      "go to Home Page"]]])
