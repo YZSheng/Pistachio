@@ -17,7 +17,11 @@
   (fn [db]
     (:users db)))
 
+(defn menu-burger-toggled-sub
+  [db]
+  (:menu-burger-toggled db))
+
+
 (re-frame/reg-sub
   ::menu-burger-toggled
-  (fn [db]
-    (:menu-burger-toggled db)))
+  menu-burger-toggled-sub)
