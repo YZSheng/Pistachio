@@ -18,31 +18,31 @@
 (defn nav-bar
   "navigation bar"
   []
-  [:nav {:class "navbar" :role "navigation"}
-   [:div {:class "navbar-brand"}
-    [:a {:class "navbar-item" :href "#/"} "PistachioHR"]
-    [:a {:class "navbar-burger burger" :role "button" :data-target "navbar-content"}
+  [:nav.navbar {:role "navigation"}
+   [:div.navbar-brand
+    [:a.navbar-item {:href "#/"} "PistachioHR"]
+    [:a.navbar-burger.burger {:role "button" :data-target "navbar-content"}
      (->> (range 3)
           (map #(vector :span {:key %1})))]]
-   [:div {:class "navbar-menu" :id "navbar-content"}
-    [:div {:class "navbar-start"}
-     [:a {:class "navbar-item" :href "#/"} "Home"]
-     [:a {:class "navbar-item" :href "#/about"} "About"]]]])
+   [:div#navbar-content.navbar-menu
+    [:div.navbar-start
+     [:a.navbar-item {:href "#/"} "Home"]
+     [:a.navbar-item {:href "#/about"} "About"]]]])
 
 ;; users
 
 (defn user-section []
   (let [users (re-frame/subscribe [::subs/users])]
-    [:div {:class "columns"} (map (fn [{name :name department :department avatar-url :avatar-url}]
-                                    (user-tile name department avatar-url))
-                                  @users)]))
+    [:div.columns (map (fn [{name :name department :department avatar-url :avatar-url}]
+                         (user-tile name department avatar-url))
+                       @users)]))
 
 ;; home
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
-     [:h1 {:class "title"}
+     [:h1.title
       (str "Hello from " @name)]
      [user-section]
      [:div
@@ -72,6 +72,6 @@
 
 (defn main-panel []
   (let [active-panel (re-frame/subscribe [::subs/active-panel])]
-    [:div {:id "main"}
+    [:div#main
      [nav-bar]
      [show-panel @active-panel]]))
