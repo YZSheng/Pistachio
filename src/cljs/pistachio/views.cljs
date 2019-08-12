@@ -22,13 +22,13 @@
      [:div.navbar-brand
       [:a.navbar-item {:href "#/"} "PistachioHR"]
       [:a.navbar-burger.burger
-       {:class (str "navbar-burger burger" (when @toggled " is-active"))
-        :role "button"
+       {:class       (str "navbar-burger burger" (when @toggled " is-active"))
+        :role        "button"
         :data-target "navbar-content"
-        :on-click #(re-frame/dispatch [::events/toggle-menu-burger])}
+        :on-click    #(re-frame/dispatch [::events/toggle-menu-burger])}
        (->> (range 3)
             (map #(vector :span {:key %1})))]]
-     [:div#navbar-content.navbar-menu
+     [:div#navbar-content {:class (str "navbar-menu" (when @toggled " is-active"))}
       [:div.navbar-start
        [:a.navbar-item {:href "#/"} "Home"]
        [:a.navbar-item {:href "#/about"} "About"]]]]))
@@ -37,30 +37,34 @@
 
 (defn user-section []
   (let [users (re-frame/subscribe [::subs/users])]
-    [:div.columns (map (fn [{name :name department :department avatar-url :avatar-url}]
-                         (user-tile name department avatar-url))
-                       @users)]))
+    [:section.section
+     [:div.columns (map (fn [{name :name department :department avatar-url :avatar-url}]
+                          (user-tile name department avatar-url))
+                        @users)]]))
+
+
+
+(defn welcome-message [name]
+  [:section.hero.is-medium.is-primary.is-bold
+   [:div.hero-body
+    [:div.container
+     [:h1.title "Hello there!"]
+     [:h2.subtitle (str "Welcome to " name)]]]])
+
 
 ;; home
 
 (defn home-panel []
   (let [name (re-frame/subscribe [::subs/name])]
     [:div
-     [:h1.title
-      (str "Hello from " @name)]
-     [user-section]
-     [:div
-      [:a {:href "#/about"}
-       "go to About Page"]]]))
+     [welcome-message @name]
+     [user-section]]))
 
 ;; about
 
 (defn about-panel []
   [:div
-   [:h1 "This is the About Page."]
-   [:div
-    [:a {:href "#/"}
-     "go to Home Page"]]])
+   [:h1 "This is the About Page."]])
 
 ;; main
 
