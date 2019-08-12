@@ -5,8 +5,8 @@
    [pistachio.events :as events]
    [pistachio.routes :as routes]
    [pistachio.views :as views]
-   [pistachio.config :as config]
-   ))
+   [pistachio.config :as config]))
+
 
 
 (defn dev-setup []

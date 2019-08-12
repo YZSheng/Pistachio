@@ -7,3 +7,4 @@ out
 pistachio.iml
 node_modules/
 .lein-failures
+.lein-repl-history
