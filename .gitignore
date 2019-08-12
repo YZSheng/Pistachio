@@ -4,6 +4,6 @@
 /resources/public/js/compiled
 out
 .idea
-pistachio.impl
+pistachio.iml
 node_modules/
 .lein-failures
