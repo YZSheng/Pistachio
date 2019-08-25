@@ -38,7 +38,7 @@
 (defn user-section []
   (let [users (re-frame/subscribe [::subs/users])]
     [:section.section
-     [:div.columns (map (fn [{name :name department :department avatar-url :avatar-url}]
+     [:div.columns (map (fn [{:keys [name department avatar-url]}]
                           (user-tile name department avatar-url))
                         @users)]]))
 

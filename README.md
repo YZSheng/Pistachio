@@ -6,10 +6,7 @@ A [re-frame](https://github.com/Day8/re-frame) application designed to ... well,
 
 ### Run application:
 
-```
-lein clean
-lein figwheel dev
-```
+Run the repl with `script/repl.clj`
 
 Figwheel will automatically push cljs changes to the browser.
 
