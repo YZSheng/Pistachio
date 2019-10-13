@@ -3,7 +3,7 @@
                  [org.clojure/clojurescript "1.10.520"]
                  [reagent "0.8.1"]
                  [re-frame "0.10.8"]
-                 [secretary "1.2.3"]
+                 [clj-commons/secretary "1.2.4"]
                  [compojure "1.6.1"]
                  [yogthos/config "1.1.2"]
                  [figwheel-sidecar "0.5.18"]

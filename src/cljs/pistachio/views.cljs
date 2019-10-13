@@ -2,17 +2,20 @@
   (:require
     [re-frame.core :as re-frame]
     [pistachio.events :as events]
-    [pistachio.subs :as subs]))
+    [pistachio.subs :as subs]
+    [secretary.core :as secretary]))
 
 (defn user-tile
-  [name department avatar-url]
+  [id name department avatar-url]
   [:div {:class "user-tile column" :key name}
    [:div
-    [:figure {:class "image is-128x128"}
-     [:img {:src avatar-url}]]
-    [:dl
-     [:dt name]
-     [:dd department]]]])
+    [:a {:href (str "#/users/" id)}
+     [:figure {:class "image is-128x128"}
+      [:img {:src avatar-url}]]
+     [:dl
+      [:dt name]
+      [:dd department]]]]])
+
 
 ;; nav bars
 
@@ -38,9 +41,25 @@
 (defn user-section []
   (let [users (re-frame/subscribe [::subs/users])]
     [:section.section
-     [:div.columns (map (fn [{:keys [name department avatar-url]}]
-                          (user-tile name department avatar-url))
+     [:div.columns (map (fn [{:keys [id name department avatar-url]}]
+                          (user-tile id name department avatar-url))
                         @users)]]))
+
+(defn user-details []
+  (let [user (re-frame/subscribe [::subs/selected-user])]
+    [:section.section
+     [:div.container
+      [:h1 (str "User details for " (:name @user))]
+      [:div.card
+       [:div.card-content
+        [:div.media
+         [:div.media-left
+          [:figure.image.is-128x128
+           [:img {:src (:avatar-url @user)}]]]
+         [:div.media-content
+          [:p.title.is-4 (str "Department " (:department @user))]]]]]]]))
+
+
 
 
 
@@ -50,7 +69,6 @@
     [:div.container
      [:h1.title "Hello there!"]
      [:h2.subtitle (str "Welcome to " name)]]]])
-
 
 ;; home
 
@@ -72,6 +90,7 @@
   (case panel-name
     :home-panel [home-panel]
     :about-panel [about-panel]
+    :user-details [user-details]
     [:div]))
 
 (defn show-panel [panel-name]

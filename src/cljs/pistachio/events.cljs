@@ -16,6 +16,11 @@
    (assoc db :active-panel active-panel)))
 
 (re-frame/reg-event-db
+ ::set-selected-user
+ (fn-traced [db [_ id]]
+   (assoc db :selected-user (some #(if (= id (:id %)) %) (:users db)))))
+
+(re-frame/reg-event-db
   ::toggle-menu-burger
   (fn-traced [db _]
              (update db :menu-burger-toggled not)))

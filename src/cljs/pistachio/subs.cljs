@@ -17,6 +17,11 @@
   (fn [db]
     (:users db)))
 
+(re-frame/reg-sub
+  ::selected-user
+  (fn [db]
+    (:selected-user db)))
+
 (defn menu-burger-toggled-sub
   [db]
   (:menu-burger-toggled db))
